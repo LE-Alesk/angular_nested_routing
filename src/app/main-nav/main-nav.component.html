@@ -1,0 +1,54 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) ">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <span class="aligndown1">
+        <a mat-list-item routerLink="dashboard" [routerLinkActive]="'active'"
+          (click)="drawer.toggle();barService.sendNext('main',true)">
+          <mat-icon class="aligndownMenu">
+            group
+          </mat-icon>
+          dashboard
+        </a>
+      </span>
+      <a mat-list-item routerLink="profile" [routerLinkActive]="'active'"
+        (click)="drawer.toggle();barService.sendNext('main',true)"><mat-icon
+          class="aligndownMenu">group</mat-icon>profile</a>
+      <a mat-list-item routerLink="attendance" [routerLinkActive]="'active'"
+        (click)="drawer.toggle();barService.sendNext('main',true)"><mat-icon class="aligndownMenu">group</mat-icon>
+        attendance
+      </a>
+      <a mat-list-item routerLink="leaves" [routerLinkActive]="'active'"
+        (click)="drawer.toggle();barService.sendNext('main',false)"><mat-icon class="aligndownMenu">group</mat-icon>
+        leaves
+      </a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" *ngIf="mainBar">
+      <button type="button" aria-label="Toggle sidenav" color="primary" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span routerLink="/" class="aligndown"><mat-icon>home</mat-icon>Esercitazione libri </span>
+      <span class="fillSpace"></span>
+
+      <span *ngIf="!(isHandset$ | async)" class="buttons">
+
+        <button mat-raised-button routerLink="dashboard" routerLinkActive="active" color="primary" class="button">dashboard</button>
+        <button mat-raised-button routerLink="profile"  routerLinkActive="active" color="primary" class="button">profile</button>
+        <button mat-raised-button routerLink="attendance" routerLinkActive="active" color="primary" class="button">attendance</button>
+        <button mat-raised-button routerLink="leaves" color="primary" class="button"
+          (click)="barService.sendNext('main',false)">
+          leaves
+        </button>
+
+      </span>
+
+    </mat-toolbar>
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
